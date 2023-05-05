@@ -42,8 +42,7 @@ Protected Class Window
 		    
 		    Const GWL_EXSTYLE = -20
 		    
-		    Declare Function GetWindowLong Lib "User32" Alias "GetWindowLongA" (hwnd As Integer,  _
-		    nIndex As Integer) As Integer
+		    Declare Function GetWindowLong Lib "User32" Alias "GetWindowLongA" (hwnd As Integer, nIndex As Integer) As Integer
 		    Dim oldFlags As Integer
 		    oldFlags = GetWindowLong(w.Handle, GWL_EXSTYLE)
 		    
@@ -55,10 +54,8 @@ Protected Class Window
 		    End If
 		    
 		    Dim styleFlags As Integer
-		    Declare Function SetWindowLong Lib "User32" Alias "SetWindowLongA" (hwnd As Integer, _
-		    nIndex As Integer, dwNewLong As Integer) As Integer
-		    Declare Function SetWindowPos Lib "User32" (hwnd As Integer, hWndInstertAfter As Integer, _
-		    x As Integer, y As Integer, cx As Integer, cy As Integer, flags As Integer) As Integer
+		    Declare Function SetWindowLong Lib "User32" Alias "SetWindowLongA" (hwnd As Integer, nIndex As Integer, dwNewLong As Integer) As Integer
+		    Declare Function SetWindowPos Lib "User32" (hwnd As Integer, hWndInstertAfter As Integer, x As Integer, y As Integer, cx As Integer, cy As Integer, flags As Integer) As Integer
 		    styleFlags = SetWindowLong(w.Handle, GWL_EXSTYLE, newFlags)
 		    styleFlags = SetWindowPos(w.Handle, 0, 0, 0, 0, 0, SWP_NOMOVE + _
 		    SWP_NOSIZE + SWP_NOZORDER + SWP_FRAMECHANGED)
@@ -75,14 +72,6 @@ Protected Class Window
 		End Sub
 	#tag EndMethod
 
-	#tag ExternalMethod, Flags = &h21
-		Private Soft Declare Function GetWindowLong Lib "User32" Alias "GetWindowLongA" (hwnd as integer, nIndex as integer) As Integer
-	#tag EndExternalMethod
-
-	#tag ExternalMethod, Flags = &h21
-		Private Soft Declare Sub SetLayeredWindowAttributes Lib "User32" (hwnd As Integer, theColor As Integer, bAlpha As Integer, alpha As Integer)
-	#tag EndExternalMethod
-
 	#tag Method, Flags = &h0
 		Shared Sub SetOpacity(wind As Global.Window, value As Double)
 		  // Sets a window's opacity
@@ -90,6 +79,10 @@ Protected Class Window
 		    Const GWL_EXSTYLE = -20
 		    Const WS_EX_LAYERED = &h80000
 		    Const LWA_ALPHA = 2
+		    
+		    Declare Function GetWindowLong Lib "User32" Alias "GetWindowLongA" (hwnd As Integer, nIndex As Integer) As Integer
+		    Declare Function SetWindowLong Lib "User32" Alias "SetWindowLongA" (hwnd As Integer, nIndex As Integer, dwNewLong As Integer) As Integer
+		    Declare Sub SetLayeredWindowAttributes Lib "User32" Alias "SetWindowLongA" (hwnd As Integer, theColor As Integer, bAlpha As Integer, alpha As Integer)
 		    
 		    // grab our existing flags
 		    Dim existingFlags As Integer = GetWindowLong(wind.Handle, GWL_EXSTYLE)
@@ -102,10 +95,6 @@ Protected Class Window
 		  #EndIf
 		End Sub
 	#tag EndMethod
-
-	#tag ExternalMethod, Flags = &h21
-		Private Soft Declare Function SetWindowLong Lib "User32" Alias "SetWindowLongA" (hwnd As Integer, nIndex As Integer, value As Integer) As Integer
-	#tag EndExternalMethod
 
 	#tag Method, Flags = &h21
 		Private Shared Function TestWindowStyleEx(w As Global.Window, flag As Integer) As Boolean
@@ -134,6 +123,7 @@ Protected Class Window
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -141,18 +131,23 @@ Protected Class Window
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -160,6 +155,7 @@ Protected Class Window
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class
